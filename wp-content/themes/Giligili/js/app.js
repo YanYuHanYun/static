@@ -462,15 +462,18 @@ App.startTime();
 if (giligiliConfig.loadPjax==1) {
     $(document).pjax('a:not(.post-type-link, .backstage, .no-pjax)[target!=_blank]', '#main-part', {fragment:'#main-part', timeout:8000});
     $(document).on('pjax:send', function() {
-        $('#main-part').fadeTo(800,0.0);
 			layer.open({
             type: 2,
             time: false
         });
+			$('#main-part').fadeTo(800,0.0,function(){
+				layer.closeAll();
+			});
     })
     $(document).on('pjax:complete', function() {
-        $('#main-part').fadeTo(800,1);
-			layer.closeAll();
+        $('#main-part').fadeTo(800,1,function(){
+				layer.closeAll();
+			});
         App.init();
       	App.postType();
         App.postsPaging();
